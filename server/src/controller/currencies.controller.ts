@@ -12,10 +12,10 @@ import {
 import { CurrenciesService } from 'src/service/currencies.service';
 
 @Controller('Currencies')
-export class UsersController {
+export class CurrenciesController {
     constructor(private readonly CurrenciesService: CurrenciesService) { }
 
-    // GET /users/email/:email
+    // GET /Currencies
     @Get()
     @HttpCode(HttpStatus.OK)
     async getAllCurrencies() {

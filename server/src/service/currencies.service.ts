@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import bcrypt from "node_modules/bcryptjs";
 import { Currencies, UserDocument } from "src/schemas/currencies.schemas";
 
 @Injectable()

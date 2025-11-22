@@ -17,8 +17,6 @@ export class Currencies {
   @Prop({ required: true })
   minorUnits: number;
 
-  @Prop({ default: null })
-  symbol: string | null;
 }
 
 export const CurrenciesSchema = SchemaFactory.createForClass(Currencies);
