@@ -8,6 +8,7 @@ import {
     HttpCode,
     HttpStatus,
     HttpException,
+    Headers
 } from '@nestjs/common';
 import { AuthService } from 'src/service/auth.service';
 import { Auth } from "src/schemas/auth.schemas";
@@ -18,7 +19,7 @@ export class AuthController {
     constructor(private readonly AuthService: AuthService,
         private jwtService: JwtService) { }
 
-    // POST /users
+    // POST /users/register
     @Post('/register')
     async create(@Body() User: Auth) {
         // check existing
@@ -46,12 +47,39 @@ export class AuthController {
         return safe;
     }
 
-    // GET /users/:name
-    @Get('/:name')
+    // GET /users/get-profile-details
+    @Get('/get-profile-details')
     @HttpCode(HttpStatus.OK)
-    async findByEmail(@Param('name') name: string) {
-        const user = await this.AuthService.findUserByUserName(name);
-        if (!user) throw new NotFoundException('User not found');
+    async findByEmail(@Headers() headers: Record<string, any>,) {
+        const authorizationHeader = headers['authorization'];
+        const token = authorizationHeader?.split(' ')[1];
+        if (!token) {
+            throw new HttpException(
+                {
+                    statusCode: HttpStatus.UNAUTHORIZED,
+                    message: 'No token provided',
+                },
+                HttpStatus.UNAUTHORIZED
+            );
+        }
+        const decoded = this.jwtService.verify(token);
+        if (!decoded || !decoded.name) {
+            throw new HttpException(
+                {
+                    statusCode: HttpStatus.UNAUTHORIZED,
+                    message: 'Invalid token',
+                },
+                HttpStatus.UNAUTHORIZED
+            );
+        }
+
+        const user = await this.AuthService.findUserByUserName(decoded.name);
+        if (!user) throw new HttpException({
+            statusCode: HttpStatus.BAD_REQUEST,
+            message: 'Email already in use',
+        }, HttpStatus.BAD_REQUEST
+        );
+
         const { password, ...safe } = user.toObject ? user.toObject() : user;
         return safe;
     }
@@ -74,7 +102,7 @@ export class AuthController {
         const payload = { sub: user._id, name: user.name };
         const token = this.jwtService.sign(payload);
 
-    
+
         return {
             user: safe,
             token,

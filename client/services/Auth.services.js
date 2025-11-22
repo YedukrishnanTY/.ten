@@ -34,3 +34,15 @@ export const login = async (formData) => {
     }
 };
 
+export const getProfileDetails = async () => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/users/get-profile-details`, {
+            method: 'GET',
+            headers: getHeaders(),
+        });
+        const result = await handleResponse(response);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+};

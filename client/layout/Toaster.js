@@ -1,10 +1,9 @@
 'use client'
-import Interceptor from '@/common/Interceptor'
+import Interceptor from '@/common/interceptor'
 import { Toaster as Toast } from 'sonner'
 
+Interceptor()
 export default function Toaster({ }) {
-    Interceptor()
-
     return (
         <Toast />
     )
