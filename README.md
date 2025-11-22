@@ -1,8 +1,3 @@
----
-title: "Koa – Personal Expense & Subscription Tracker"
-description: "Koa helps you log, categorize, and understand personal spending."
----
-
 # **Koa – Personal Expense & Subscription Tracker**
 
 **Koa** is a reliable and intuitive application designed to help you clearly log, categorize, and understand your personal spending.
