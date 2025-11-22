@@ -61,16 +61,9 @@ npm run dev
 
 ---
 
-## **🛠️ Roadmap**
-
-* [ ] Mobile app version
-
----
-
 ## **📄 License**
 
 MIT License.
 
 ---
 
-If you want, I can make a **shorter version**, an **ultra-professional version**, or a **GitHub-optimised README with badges, screenshots, and sections**.
