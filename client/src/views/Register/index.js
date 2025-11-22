@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 import { signup } from '@/services/Auth.services'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { toast } from 'sonner';
@@ -109,7 +110,13 @@ function Register({ currencyList = [] }) {
                                 </Button>
                             </div>
                         </Form>
-
+                        <div className='flex flex-col gap-2 '>
+                            <h5 className='text-sm' style={{ color: palettes.light[50] }}>
+                                <Link style={{
+                                    color: palettes.primary[400],
+                                }}
+                                    href={'/login'}> Already have an account? </Link></h5>
+                        </div>
                         <div className='mt-4 p-3 border rounded-md' style={{ borderColor: palettes.slate[700] }}>
                             <p className='text-xs' style={{ color: palettes.light[50] }}>
                                 ⚠️ <strong>Disclaimer:</strong> Please remember your <strong>User Name</strong> and <strong>Password</strong>.

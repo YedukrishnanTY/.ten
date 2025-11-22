@@ -9,8 +9,6 @@ export const signup = async (formData) => {
             headers: getHeaders(),
             body: JSON.stringify(formData),
         });
-
-        // IMPORTANT: await this!
         const result = await handleResponse(response);
         return result;
 
@@ -27,9 +25,8 @@ export const login = async (formData) => {
             headers: getHeaders(),
             body: JSON.stringify(formData),
         });
-
-        // IMPORTANT: await this!
         const result = await handleResponse(response);
+        localStorage.setItem('a', result.token);
         return result;
 
     } catch (error) {

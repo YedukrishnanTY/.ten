@@ -12,7 +12,7 @@ function Header() {
         <div className='flex items-center justify-between px-2 py-2 sm:flex-row'>
             <Image src="/logo.png" onClick={() => { router.push('/') }} alt="Logo" width={60} height={40} />
             <div className='flex gap-4 flex-row'>
-                <Button type='submit' className='font-bold'
+                {/* <Button type='submit' className='font-bold'
                     onClick={() => { router.push('/register') }}
                     style={{
                         backgroundColor: palettes.primary[400],
@@ -29,7 +29,7 @@ function Header() {
                         padding: '12px 16px'
                     }}>
                     Login
-                </Button>
+                </Button> */}
             </div>
         </div>
     )

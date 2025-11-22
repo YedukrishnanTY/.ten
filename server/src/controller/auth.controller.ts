@@ -4,7 +4,6 @@ import {
     Get,
     Param,
     Post,
-    ConflictException,
     NotFoundException,
     HttpCode,
     HttpStatus,
@@ -59,7 +58,7 @@ export class AuthController {
 
     @Post('/login')
     @HttpCode(HttpStatus.OK)
-    async login(@Body() body: { name: string; password: string }) {
+    async login(@Body() body: { name: string; password: string },) {
         const { name, password } = body;
         const user = await this.AuthService.loginUser(name, password);
         if (!user) {
@@ -74,6 +73,8 @@ export class AuthController {
         const { password: pwd, ...safe } = user.toObject ? user.toObject() : user;
         const payload = { sub: user._id, name: user.name };
         const token = this.jwtService.sign(payload);
+
+    
         return {
             user: safe,
             token,

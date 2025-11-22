@@ -8,6 +8,7 @@ import { CurrenciesController } from './controller/currencies.controller';
 import { CurrenciesService } from './service/currencies.service';
 import { Currencies, CurrenciesSchema } from './schemas/currencies.schemas';
 import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './jwt.strategy';
 
 require('dotenv').config();
 
@@ -27,7 +28,7 @@ const uri = process.env.DATABASE_URL || '';
     }),
   ],
   controllers: [AuthController, CurrenciesController],
-  providers: [AuthService, CurrenciesService],
+  providers: [AuthService, CurrenciesService, JwtStrategy],
   exports: [AuthService],
 })
 export class AppModule { }

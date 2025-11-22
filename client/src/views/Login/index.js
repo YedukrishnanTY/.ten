@@ -25,17 +25,13 @@ function Register({ currencyList = [] }) {
             password,
         };
         const response = login(formData).then((data) => {
-            toast.success('', {
-                title: "Registration Successful",
-                description:
-                    "You have registered successfully",
-            });
+            toast.success('Login Successful');
             setTimeout(() => {
                 router.push('/login');
             }, 1500);
         }).catch((error) => {
             toast.warning('', {
-                title: "Registration Failed",
+                title: "Login Failed",
                 description:
                     error?.data?.message ||
                     error?.message ||
