@@ -3,9 +3,7 @@ import { palettes } from '@/common/palettes'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
-
-import { signup } from '@/services/Auth.services'
+import { login } from '@/services/Auth.services'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
@@ -14,11 +12,10 @@ import { toast } from 'sonner';
 function Register({ currencyList = [] }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [selectedCurrency, setSelectedCurrency] = useState('');
     const router = useRouter();
 
     const handleSubmit = async (e) => {
-        if (username.trim() === '' || password.trim() === '' || selectedCurrency.trim() === '') {
+        if (username.trim() === '' || password.trim() === '') {
             toast.warning('All fields are required');
             return;
         }
@@ -26,9 +23,8 @@ function Register({ currencyList = [] }) {
         const formData = {
             name: username,
             password,
-            currency: selectedCurrency,
         };
-        const response = signup(formData).then((data) => {
+        const response = login(formData).then((data) => {
             toast.success('', {
                 title: "Registration Successful",
                 description:

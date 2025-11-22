@@ -10,18 +10,20 @@ import {
     HttpStatus,
     HttpException,
 } from '@nestjs/common';
-import { UserService } from 'src/service/user.service';
-import { User } from "src/schemas/user.schemas";
+import { AuthService } from 'src/service/auth.service';
+import { Auth } from "src/schemas/auth.schemas";
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('users')
-export class UsersController {
-    constructor(private readonly userService: UserService) { }
+export class AuthController {
+    constructor(private readonly AuthService: AuthService,
+        private jwtService: JwtService) { }
 
     // POST /users
-    @Post()
-    async create(@Body() User: User) {
+    @Post('/register')
+    async create(@Body() User: Auth) {
         // check existing
-        const existing = await this.userService.findUserByUserName(User.name);
+        const existing = await this.AuthService.findUserByUserName(User.name);
         if (existing) {
             throw new HttpException(
                 {
@@ -40,7 +42,7 @@ export class UsersController {
                 HttpStatus.BAD_REQUEST
             );
         }
-        const user = await this.userService.createUser(User);
+        const user = await this.AuthService.createUser(User);
         const { password, ...safe } = user.toObject ? user.toObject() : user;
         return safe;
     }
@@ -49,7 +51,7 @@ export class UsersController {
     @Get('/:name')
     @HttpCode(HttpStatus.OK)
     async findByEmail(@Param('name') name: string) {
-        const user = await this.userService.findUserByUserName(name);
+        const user = await this.AuthService.findUserByUserName(name);
         if (!user) throw new NotFoundException('User not found');
         const { password, ...safe } = user.toObject ? user.toObject() : user;
         return safe;
@@ -59,7 +61,7 @@ export class UsersController {
     @HttpCode(HttpStatus.OK)
     async login(@Body() body: { name: string; password: string }) {
         const { name, password } = body;
-        const user = await this.userService.loginUser(name, password);
+        const user = await this.AuthService.loginUser(name, password);
         if (!user) {
             throw new HttpException(
                 {
@@ -70,7 +72,12 @@ export class UsersController {
             );
         }
         const { password: pwd, ...safe } = user.toObject ? user.toObject() : user;
-        return safe;
+        const payload = { sub: user._id, name: user.name };
+        const token = this.jwtService.sign(payload);
+        return {
+            user: safe,
+            token,
+        };
     }
 
 }
