@@ -1,10 +1,7 @@
----
+# **Koa – Personal Expense & Subscription Tracker**
 
-# **Koa — Personal Expense & Subscription Tracker**
+**Koa** is a reliable and intuitive application designed to help you clearly log, categorize, and understand your personal spending.
 
-**Koa** is a reliable and intuitive application designed to help you clearly log, categorize, and understand your personal spending. Whether you want to track daily expenses, monitor monthly budgets, or stay on top of recurring subscriptions, **Koa** keeps everything organized in one place.
-
----
 
 ## **✨ Features**
 
@@ -64,16 +61,9 @@ npm run dev
 
 ---
 
-## **🛠️ Roadmap**
-
-* [ ] Mobile app version
-
----
-
 ## **📄 License**
 
 MIT License.
 
 ---
 
-If you want, I can make a **shorter version**, an **ultra-professional version**, or a **GitHub-optimised README with badges, screenshots, and sections**.
