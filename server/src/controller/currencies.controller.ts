@@ -20,7 +20,7 @@ export class CurrenciesController {
     @HttpCode(HttpStatus.OK)
     async getAllCurrencies() {
         const currencies = await this.CurrenciesService.getAllCurrencies();
-        return currencies;
+        return [...currencies];
     }
 
 }

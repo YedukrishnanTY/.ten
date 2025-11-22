@@ -1,4 +1,4 @@
-import getHeaders from "../common/getHeaders";
+import getHeaders from "../../common/getHeaders";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const getCurrencyList = async () => {
