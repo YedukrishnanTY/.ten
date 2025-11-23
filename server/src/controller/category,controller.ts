@@ -1,5 +1,7 @@
 import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
+import { Roles } from "src/roles/roles.decorator";
+import { RolesGuard } from "src/roles/roles.guard";
 import { CategoryService } from "src/service/category.service";
 
 @Controller('categories')
@@ -12,6 +14,8 @@ export class CategoryController {
         return this.CategoryService.getAllCategories();
     }
 
+    @UseGuards(AuthGuard('jwt'), RolesGuard)
+    @Roles('ADMIN')
     @Post('/create')
     createCategory(@Body() categoryData: { name: string, icon: string }) {
 
@@ -21,13 +25,18 @@ export class CategoryController {
         return this.CategoryService.createCategory(payload);
     }
 
+    @UseGuards(AuthGuard('jwt'), RolesGuard)
+    @Roles('ADMIN')
     @Post('/disable')
     disableCategory(@Body() disableData: { categoryId: string }) {
         return this.CategoryService.disableCategory(disableData.categoryId);
     }
 
-    // @Post('/create-list')
-    // createCategoryList(@Body() categories: Array<{ name: string, icon: string }>) {
-    //     return this.CategoryService.createCategoryList(categories);
-    // }
+
+    @UseGuards(AuthGuard('jwt'), RolesGuard)
+    @Roles('ADMIN')
+    @Post('/create-list')
+    createCategoryList(@Body() categories: Array<{ name: string, icon: string }>) {
+        return this.CategoryService.createCategoryList(categories);
+    }
 }

@@ -9,6 +9,7 @@ import RecentTransaction from './Components/RecentTransaction';
 import ChartAndSubs from './Components/ChartAndSubs';
 import Balance from './Components/Balance';
 import { Button } from '@/components/ui/button';
+import { getExpenseAll } from '@/services/Expenses.services';
 
 
 
@@ -36,9 +37,18 @@ export default function HomePage({
                 setLoading(false);
             });
     };
-
+    const getExpenseDetails = async () => {
+        await getExpenseAll()
+            .then((res) => {
+                console.log(res, 'res')
+            })
+            .catch((err) => {
+                toast.error('Failed to fetch expense details. ');
+            })
+    };
     React.useEffect(() => {
         getDetails();
+        getExpenseDetails()
     }, []);
 
     if (loading) {
