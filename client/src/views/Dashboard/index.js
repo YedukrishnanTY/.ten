@@ -20,7 +20,6 @@ export default function HomePage({
     ],
 }) {
     const router = useRouter();
-    const format = (v) => v.toLocaleString(undefined, { style: 'currency', currency: 'USD' });
     const [loading, setLoading] = React.useState(true);
     const [profile, setProfile] = React.useState(null);
 
