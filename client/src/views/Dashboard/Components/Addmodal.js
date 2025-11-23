@@ -8,7 +8,7 @@ import { palettes } from "@/common/palettes";
 import { Icon } from "@/lib/utils";
 
 
-export default function AddModal({ isOpen, onClose, onSave, currencyList, profile, editDetails }) {
+export default function AddModal({ isOpen, onClose, onSave, currencyList, profile, editDetails, handleDelete }) {
     const [name, setName] = React.useState("");
     const [balance, setBalance] = React.useState("");
     const [selectedCurrency, setSelectedCurrency] = React.useState(profile?.currency || '');
@@ -35,6 +35,7 @@ export default function AddModal({ isOpen, onClose, onSave, currencyList, profil
             balance: parseFloat(balance),
             currency: selectedCurrency,
             icon: selectedIcon || "banknote",
+            ...(editDetails?._id ? { _id: editDetails?._id } : {})
         });
 
         // close after save
@@ -51,6 +52,12 @@ export default function AddModal({ isOpen, onClose, onSave, currencyList, profil
             setBalance(editDetails?.balance || '')
             setSelectedCurrency(editDetails?.currency || '')
             setSelectedIcon(editDetails?.icon || '')
+        } else {
+            setName('')
+            setBalance('')
+            setSelectedCurrency(profile?.currency || '')
+            setSelectedIcon('banknote')
+
         }
     }, [editDetails])
     return (
@@ -90,6 +97,7 @@ export default function AddModal({ isOpen, onClose, onSave, currencyList, profil
                     </label>
 
                     <div className='w-full mb-6'>
+                        <div className="text-sm font-medium mb-1">Currency</div>
                         <Select onValueChange={setSelectedCurrency} value={selectedCurrency} required>
                             <SelectTrigger
                                 className='w-full p-5 rounded-sm'
@@ -110,10 +118,9 @@ export default function AddModal({ isOpen, onClose, onSave, currencyList, profil
                     </div>
 
                     <div className='w-full mb-6'>
-
                         <div className="text-sm font-medium mb-1">Icon</div>
                         <Select onValueChange={setSelectedIcon} value={selectedIcon}  >
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger className="w-full p-5 rounded-sm" style={{ background: palettes.dark[800], color: palettes.light[50] }}>
                                 <SelectValue placeholder="Select Icon" />
                             </SelectTrigger>
                             <SelectContent>
@@ -132,10 +139,16 @@ export default function AddModal({ isOpen, onClose, onSave, currencyList, profil
                         </Select>
                     </div>
                     <div className="flex justify-end space-x-3 pt-4">
-                        <Button type="button" variant="secondary" onClick={() => onClose()}>
-                            Cancel
+                        <Button style={{
+                            color: editDetails?._id ? palettes.slate[100] : palettes.primary[400],
+                            backgroundColor: editDetails?._id ? '#ff1f1f' : palettes.slate[100],
+                        }} type="button" variant="secondary" onClick={() => { editDetails?._id ? handleDelete(editDetails) : onClose() }}>
+                            {editDetails?._id ? 'Delete' : 'Cancel'}
                         </Button>
-                        <Button type="submit">Save Account</Button>
+                        <Button style={{
+                            backgroundColor: palettes.primary[400],
+                            color: palettes.slate[100],
+                        }} type="submit">Save Account</Button>
                     </div>
                 </form>
 

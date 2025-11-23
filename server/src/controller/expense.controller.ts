@@ -12,10 +12,12 @@ import { AuthGuard } from '@nestjs/passport';
 import { Roles } from 'src/roles/roles.decorator';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { ExpenseService } from 'src/service/expense.service';
+import { TokenService } from 'src/service/token.services';
 
 @Controller('expense')
 export class ExpenseController {
-    constructor(private readonly ExpenseService: ExpenseService, private jwtService: JwtService) { }
+    constructor(private readonly ExpenseService: ExpenseService,
+        private tokenService: TokenService) { }
 
     // GET /expense
     @UseGuards(AuthGuard('jwt'), RolesGuard)
@@ -33,27 +35,9 @@ export class ExpenseController {
     @Get('/all')
     @HttpCode(HttpStatus.OK)
     async getExpensePerUser(@Headers() headers: Record<string, any>) {
-        const token = headers?.['authorization']?.split(' ')?.[1]
-        if (!token) {
-            throw new HttpException(
-                {
-                    statusCode: HttpStatus.UNAUTHORIZED,
-                    message: 'No token provided',
-                },
-                HttpStatus.UNAUTHORIZED
-            );
-        }
-        let decodedToken: any;
-        try {
-            decodedToken = this.jwtService.verify(token);
-        } catch (err) {
-            throw new HttpException(
-                { statusCode: HttpStatus.UNAUTHORIZED, message: 'Invalid token' },
-                HttpStatus.UNAUTHORIZED,
-            );
-        }
+        const username = this.tokenService.getUsernameFromHeaders(headers);
         const payload = {
-            userName: decodedToken.name
+            userName: username
         }
         const Expenses = await this.ExpenseService.getExpenseByUserName(payload);
         return Expenses || [];
@@ -64,25 +48,7 @@ export class ExpenseController {
     @Get('/Create')
     @HttpCode(HttpStatus.OK)
     async createExpense(@Headers() headers: Record<string, any>, @Body() body: Record<string, any>) {
-        const token = headers?.['authorization']?.split(' ')?.[1];
-        if (!token) {
-            throw new HttpException(
-                { statusCode: HttpStatus.UNAUTHORIZED, message: 'No token provided' },
-                HttpStatus.UNAUTHORIZED,
-            );
-        }
-
-        let decodedToken: any;
-        try {
-            decodedToken = this.jwtService.verify(token);
-        } catch (err) {
-            throw new HttpException(
-                { statusCode: HttpStatus.UNAUTHORIZED, message: 'Invalid token' },
-                HttpStatus.UNAUTHORIZED,
-            );
-        }
-
-        const username = decodedToken.name;
+        const username = this.tokenService.getUsernameFromHeaders(headers);
         if (!username) {
             throw new HttpException(
                 { statusCode: HttpStatus.BAD_REQUEST, message: 'Username not found in token' },

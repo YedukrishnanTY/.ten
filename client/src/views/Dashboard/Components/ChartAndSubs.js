@@ -44,6 +44,7 @@ function ChartAndSubs({ currencyList, profile }) {
     }
     const handleOpenModal = (account, type) => {
         if (type !== 'edit') {
+            setEditDetails({})
             setIsDialogOpen(true)
             return
         } else {
@@ -70,6 +71,20 @@ function ChartAndSubs({ currencyList, profile }) {
                 }).catch(err => {
                     toast.error(err?.message || 'failed to add')
                 })
+        }
+    };
+
+    const handleDelete = async (payload) => {
+        if (editDetails?._id) {
+            DeleteAccount(payload)
+                .then(res => {
+                    toast.success('Edited successfully')
+                    getList();
+                }).catch(err => {
+                    toast.error(err?.message || 'failed to add')
+                })
+        } else {
+            toast.error('failed to delete your account')
         }
     };
     React.useEffect(() => {
@@ -141,6 +156,7 @@ function ChartAndSubs({ currencyList, profile }) {
                     isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)}
                     currencyList={currencyList} profile={profile}
                     onSave={handleAddAccount} editDetails={editDetails}
+                    handleDelete={handleDelete}
                 />
             </div>
         </section>

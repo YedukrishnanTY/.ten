@@ -1,11 +1,11 @@
 import { Icon } from '@/lib/utils';
 import React from 'react'
 
-const AccountItem = ({ account, currency, onClick }) => {
+const AccountItem = ({ account, onClick }) => {
     const isNegative = account.balance < 0;
     const formattedBalance = new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: currency || 'USD',
+        currency: account.currency || 'USD',
     }).format(account.balance);
 
     return (

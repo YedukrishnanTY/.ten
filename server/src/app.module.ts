@@ -20,6 +20,7 @@ import { Expense, ExpenseSchema } from './schemas/expense.schema';
 import { AccountService } from './service/account.service';
 import { AccountController } from './controller/account.controller';
 import { Account, AccountSchema } from './schemas/account.schemas';
+import { TokenService } from './service/token.services';
 
 require('dotenv').config();
 
@@ -42,7 +43,7 @@ const uri = process.env.DATABASE_URL || '';
     }),
   ],
   controllers: [AuthController, CurrenciesController, CategoryController, ExpenseController, AccountController],
-  providers: [AuthService, CurrenciesService, JwtStrategy, CategoryService, RolesGuard, Reflector, ExpenseService, AccountService],
+  providers: [AuthService, CurrenciesService, JwtStrategy, CategoryService, RolesGuard, Reflector, ExpenseService, AccountService, TokenService],
   exports: [AuthService, JwtStrategy],
 })
 export class AppModule { }

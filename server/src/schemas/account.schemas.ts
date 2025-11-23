@@ -11,7 +11,7 @@ export class Account {
     @Prop({ required: true, default: 0 })
     balance: number;
 
-    @Prop({ required: true,  })
+    @Prop({ required: true, })
     currency: string;
 
     @Prop({ required: true })
@@ -19,6 +19,9 @@ export class Account {
 
     @Prop({ required: true })
     icon: string;
+
+    @Prop({ default: false })
+    isDeleted: string;
 }
 
 export const AccountSchema = SchemaFactory.createForClass(Account); 
