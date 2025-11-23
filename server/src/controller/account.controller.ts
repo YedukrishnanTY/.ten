@@ -39,17 +39,8 @@ export class AccountController {
     @Get('/all')
     @HttpCode(HttpStatus.OK)
     async getAccountsPerUser(@Headers() headers: Record<string, any>) {
-        const token = headers?.['authorization']?.split(' ')?.[1];
-        if (!token) {
-            throw new HttpException({ statusCode: HttpStatus.UNAUTHORIZED, message: 'No token provided' }, HttpStatus.UNAUTHORIZED);
-        }
-        let decodedToken: any;
-        try {
-            decodedToken = this.jwtService.verify(token);
-        } catch (err) {
-            throw new HttpException({ statusCode: HttpStatus.UNAUTHORIZED, message: 'Invalid token' }, HttpStatus.UNAUTHORIZED);
-        }
-        const payload = { userName: decodedToken.name };
+        const username = this.tokenService.getUsernameFromHeaders(headers);
+        const payload = { userName: username };
         if (!payload.userName) {
             throw new HttpException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Username not found in token' }, HttpStatus.BAD_REQUEST);
         }
@@ -62,9 +53,6 @@ export class AccountController {
     @HttpCode(HttpStatus.OK)
     async getByUsername(@Headers() headers: Record<string, any>) {
         const username = this.tokenService.getUsernameFromHeaders(headers);
-        if (!username) {
-            throw new HttpException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Username param required' }, HttpStatus.BAD_REQUEST);
-        }
         return (await this.accountService.getAccountByUsernameParam(username)) || [];
     }
 
@@ -74,10 +62,6 @@ export class AccountController {
     @HttpCode(HttpStatus.CREATED)
     async createAccount(@Headers() headers: Record<string, any>, @Body() body: Record<string, any>) {
         const username = this.tokenService.getUsernameFromHeaders(headers);
-        if (!username) {
-            throw new HttpException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Username not found in token' }, HttpStatus.BAD_REQUEST);
-        }
-
         const accountPayload = { ...body, username };
         const created = await this.accountService.createAccount(accountPayload);
         return created;
@@ -89,10 +73,6 @@ export class AccountController {
     @HttpCode(HttpStatus.CREATED)
     async EditAccount(@User() user, @Headers() headers: Record<string, any>, @Body() body: { _id: string } & Record<string, any>) {
         const username = this.tokenService.getUsernameFromHeaders(headers);
-        if (!username) {
-            throw new HttpException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Username not found in token' }, HttpStatus.BAD_REQUEST);
-        }
-
         const accountPayload = { username, ...body };
         const fetchValue = await this.accountService.updateAccount(accountPayload);
 
@@ -107,10 +87,6 @@ export class AccountController {
     @HttpCode(HttpStatus.CREATED)
     async DeleteAccount(@Headers() headers: Record<string, any>, @Body() body: { _id: string } & Record<string, any>) {
         const username = this.tokenService.getUsernameFromHeaders(headers);
-        if (!username) {
-            throw new HttpException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Username not found in token' }, HttpStatus.BAD_REQUEST);
-        }
-
         const accountPayload = { username, ...body };
         const fetchValue = await this.accountService.updateAccount(accountPayload);
 

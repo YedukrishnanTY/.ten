@@ -49,13 +49,6 @@ export class ExpenseController {
     @HttpCode(HttpStatus.OK)
     async createExpense(@Headers() headers: Record<string, any>, @Body() body: Record<string, any>) {
         const username = this.tokenService.getUsernameFromHeaders(headers);
-        if (!username) {
-            throw new HttpException(
-                { statusCode: HttpStatus.BAD_REQUEST, message: 'Username not found in token' },
-                HttpStatus.BAD_REQUEST,
-            );
-        }
-
         const expensePayload = { ...body, username };
         const created = await this.ExpenseService.createExpense(expensePayload);
         return created;

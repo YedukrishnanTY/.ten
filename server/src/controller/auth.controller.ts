@@ -17,11 +17,12 @@ import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { Roles } from 'src/roles/roles.decorator';
+import { TokenService } from 'src/service/token.services';
 
 @Controller('users')
 export class AuthController {
     constructor(private readonly AuthService: AuthService,
-        private jwtService: JwtService) { }
+        private jwtService: JwtService, private tokenService: TokenService) { }
 
     // POST /users/register
     @Post('/register')
@@ -57,32 +58,11 @@ export class AuthController {
     @Get('/get-profile-details')
     @HttpCode(HttpStatus.OK)
     async findByEmail(@Headers() headers: Record<string, any>,) {
-        const authorizationHeader = headers['authorization'];
-        const token = authorizationHeader?.split(' ')[1];
-        if (!token) {
-            throw new HttpException(
-                {
-                    statusCode: HttpStatus.UNAUTHORIZED,
-                    message: 'No token provided',
-                },
-                HttpStatus.UNAUTHORIZED
-            );
-        }
-        const decoded = this.jwtService.verify(token);
-        if (!decoded || !decoded.name) {
-            throw new HttpException(
-                {
-                    statusCode: HttpStatus.UNAUTHORIZED,
-                    message: 'Invalid token',
-                },
-                HttpStatus.UNAUTHORIZED
-            );
-        }
-
-        const user = await this.AuthService.findUserByUserName(decoded.name);
+        const username = this.tokenService.getUsernameFromHeaders(headers);
+        const user = await this.AuthService.findUserByUserName(username);
         if (!user) throw new HttpException({
             statusCode: HttpStatus.BAD_REQUEST,
-            message: 'username already exists',
+            message: 'failed to fetch the profile',
         }, HttpStatus.BAD_REQUEST
         );
 
