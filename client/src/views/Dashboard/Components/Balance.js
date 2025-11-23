@@ -91,7 +91,7 @@ const Balance = ({ balance = 1243.72,
               className="w-full h-full rounded-full border-[8px]"
               style={{
                 borderColor: palettes.red[600],
-                borderLeftColor: palettes.dark[900], 
+                borderLeftColor: palettes.dark[900],
               }}
             >
               <div className="absolute inset-0 m-2 rounded-full" style={{ backgroundColor: palettes.dark[900] }}></div>
@@ -106,16 +106,19 @@ const Balance = ({ balance = 1243.72,
         </div>
 
         {/* Insights row (Revamped small cards) */}
-        <div className="mt-8 grid grid-cols-3 gap-3">
-          <div className="col-span-1 p-3 rounded-xl text-sm shadow-inner" style={{ backgroundColor: palettes.dark[900], border: '1px solid #334155' }}>
+        <div className="mt-8 flex gap-3 flex-wrap">
+          {/* Child 1: Full width on mobile, roughly 1/3 on medium screens and up */}
+          <div className="w-full md:w-[calc(33.33%-0.5rem)] p-3 rounded-xl text-sm shadow-inner" style={{ backgroundColor: palettes.dark[900], border: '1px solid #334155' }}>
             <div className="text-gray-400 text-xs uppercase tracking-wider">This Month</div>
             <div className="font-medium text-white mt-1">{format(100)} spent</div>
           </div>
-          <div className="col-span-1 p-3 rounded-xl text-sm shadow-inner" style={{ backgroundColor: palettes.dark[900], border: '1px solid #334155' }}>
+          {/* Child 2: Full width on mobile, roughly 1/3 on medium screens and up */}
+          <div className="w-full md:w-[calc(33.33%-0.5rem)] p-3 rounded-xl text-sm shadow-inner" style={{ backgroundColor: palettes.dark[900], border: '1px solid #334155' }}>
             <div className="text-gray-400 text-xs uppercase tracking-wider">Subscriptions</div>
             <div className="font-medium text-white mt-1">{100} active</div>
           </div>
-          <div className="col-span-1 p-3 rounded-xl text-sm shadow-inner" style={{ backgroundColor: palettes.dark[900], border: '1px solid #334155' }}>
+          {/* Child 3: Full width on mobile, roughly 1/3 on medium screens and up */}
+          <div className="w-full md:w-[calc(33.33%-0.5rem)] p-3 rounded-xl text-sm shadow-inner" style={{ backgroundColor: palettes.dark[900], border: '1px solid #334155' }}>
             <div className="text-gray-400 text-xs uppercase tracking-wider">Budget Left</div>
             <div className="font-medium mt-1" style={{ color: palettes.green[500] }}>{format(100)}</div>
           </div>
