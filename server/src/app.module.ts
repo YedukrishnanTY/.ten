@@ -17,6 +17,9 @@ import { Reflector } from '@nestjs/core';
 import { ExpenseService } from './service/expense.service';
 import { ExpenseController } from './controller/expense.controller';
 import { Expense, ExpenseSchema } from './schemas/expense.schema';
+import { AccountService } from './service/account.service';
+import { AccountController } from './controller/account.controller';
+import { Account, AccountSchema } from './schemas/account.schemas';
 
 require('dotenv').config();
 
@@ -29,6 +32,7 @@ const uri = process.env.DATABASE_URL || '';
     MongooseModule.forFeature([{ name: Currencies.name, schema: CurrenciesSchema }]),
     MongooseModule.forFeature([{ name: Category.name, schema: CategorySchema }]),
     MongooseModule.forFeature([{ name: Expense.name, schema: ExpenseSchema }]),
+    MongooseModule.forFeature([{ name: Account.name, schema: AccountSchema }]),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -37,8 +41,8 @@ const uri = process.env.DATABASE_URL || '';
       signOptions: { expiresIn: '365d' }, // token expiry
     }),
   ],
-  controllers: [AuthController, CurrenciesController, CategoryController, ExpenseController],
-  providers: [AuthService, CurrenciesService, JwtStrategy, CategoryService, RolesGuard, Reflector, ExpenseService],
+  controllers: [AuthController, CurrenciesController, CategoryController, ExpenseController, AccountController],
+  providers: [AuthService, CurrenciesService, JwtStrategy, CategoryService, RolesGuard, Reflector, ExpenseService, AccountService],
   exports: [AuthService, JwtStrategy],
 })
 export class AppModule { }
