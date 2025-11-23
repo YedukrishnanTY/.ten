@@ -71,7 +71,7 @@ export class AccountController {
     @UseGuards(JwtAuthGuard)
     @Put('/create')
     @HttpCode(HttpStatus.CREATED)
-    async EditAccount(@User() user, @Headers() headers: Record<string, any>, @Body() body: { _id: string } & Record<string, any>) {
+    async EditAccount(@Headers() headers: Record<string, any>, @Body() body: { _id: string } & Record<string, any>) {
         const username = this.tokenService.getUsernameFromHeaders(headers);
         const accountPayload = { username, ...body };
         const fetchValue = await this.accountService.updateAccount(accountPayload);
