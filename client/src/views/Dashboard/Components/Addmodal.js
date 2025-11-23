@@ -142,7 +142,12 @@ export default function AddModal({ isOpen, onClose, onSave, currencyList, profil
                         <Button style={{
                             color: editDetails?._id ? palettes.slate[100] : palettes.primary[400],
                             backgroundColor: editDetails?._id ? '#ff1f1f' : palettes.slate[100],
-                        }} type="button" variant="secondary" onClick={() => { editDetails?._id ? handleDelete(editDetails) : onClose() }}>
+                        }} type="button" variant="secondary" onClick={
+                            editDetails?._id ? () => {
+                                handleDelete(editDetails); onClose()
+                            } : () => onClose()
+
+                        }>
                             {editDetails?._id ? 'Delete' : 'Cancel'}
                         </Button>
                         <Button style={{
@@ -154,6 +159,6 @@ export default function AddModal({ isOpen, onClose, onSave, currencyList, profil
 
                 <DialogFooter />
             </DialogContent>
-        </Dialog>
+        </Dialog >
     );
 }

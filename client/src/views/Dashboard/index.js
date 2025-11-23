@@ -14,15 +14,12 @@ import { getExpenseAll } from '@/services/Expenses.services';
 
 
 export default function HomePage({
-    recent = [
-        { id: 1, title: 'Grocery', amount: -45.2, category: 'Food', date: 'Nov 20' },
-        { id: 2, title: 'Salary', amount: 2000, category: 'Income', date: 'Nov 18' },
-        { id: 3, title: 'Spotify', amount: -9.99, category: 'Subscription', date: 'Nov 15' },
-    ], currencyList
+    currencyList
 }) {
     const router = useRouter();
     const [loading, setLoading] = React.useState(true);
     const [profile, setProfile] = React.useState(null);
+    const [recent, setRecent] = React.useState(null);
 
     const getDetails = async () => {
         setLoading(true);
@@ -40,10 +37,10 @@ export default function HomePage({
     const getExpenseDetails = async () => {
         await getExpenseAll()
             .then((res) => {
-                console.log(res, 'res')
+                setRecent(res || [])
             })
             .catch((err) => {
-                toast.error('Failed to fetch expense details. ');
+                toast.error(err?.message || 'Failed to fetch expense details. ');
             })
     };
     React.useEffect(() => {

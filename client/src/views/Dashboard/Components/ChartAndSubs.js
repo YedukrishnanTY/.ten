@@ -1,5 +1,5 @@
 import { palettes } from '@/common/palettes';
-import { AddAccount, EditAccount, getAccountslist } from '@/services/Accounts.services';
+import { AddAccount, DeleteAccount, EditAccount, getAccountslist } from '@/services/Accounts.services';
 import React from 'react'
 
 import {
@@ -78,7 +78,7 @@ function ChartAndSubs({ currencyList, profile }) {
         if (editDetails?._id) {
             DeleteAccount(payload)
                 .then(res => {
-                    toast.success('Edited successfully')
+                    toast.success('Deleted successfully')
                     getList();
                 }).catch(err => {
                     toast.error(err?.message || 'failed to add')

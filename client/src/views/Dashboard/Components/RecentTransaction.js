@@ -1,7 +1,7 @@
 import { palettes } from '@/common/palettes'
 import React from 'react'
 
-function RecentTransaction({ recent }) {
+function RecentTransaction({ recent = [] }) {
     return (
         <section className="bg-white rounded-2xl p-4 shadow-sm" style={{
             color: palettes.primary[400],
@@ -13,7 +13,7 @@ function RecentTransaction({ recent }) {
             </div>
 
             <ul className="divide-y">
-                {recent.map((t) => (
+                {recent?.map((t) => (
                     <li key={t.id} className="py-3 flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-sm">{t.title[0]}</div>

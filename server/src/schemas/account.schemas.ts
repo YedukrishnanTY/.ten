@@ -21,7 +21,7 @@ export class Account {
     icon: string;
 
     @Prop({ default: false })
-    isDeleted: string;
+    isDeleted: boolean;
 }
 
 export const AccountSchema = SchemaFactory.createForClass(Account); 

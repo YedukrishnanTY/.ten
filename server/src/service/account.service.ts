@@ -19,7 +19,7 @@ export class AccountService {
     }
 
     async getAccountByUsernameParam(username: string) {
-        return this.accountModel.find({ username }).exec();
+        return this.accountModel.find({ username, isDeleted: false }).exec();
     }
 
     async getAccountById(_id: string) {

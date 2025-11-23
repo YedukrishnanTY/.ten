@@ -87,7 +87,8 @@ export class AccountController {
     @HttpCode(HttpStatus.CREATED)
     async DeleteAccount(@Headers() headers: Record<string, any>, @Body() body: { _id: string } & Record<string, any>) {
         const username = this.tokenService.getUsernameFromHeaders(headers);
-        const accountPayload = { username, ...body };
+        const accountPayload = { username, ...body, isDeleted: true };
+        console.log(accountPayload, 'accountPayload')
         const fetchValue = await this.accountService.updateAccount(accountPayload);
 
         if (!fetchValue) {
