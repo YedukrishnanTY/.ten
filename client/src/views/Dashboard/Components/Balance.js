@@ -2,13 +2,8 @@ import { palettes } from '@/common/palettes';
 import React from 'react';
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
-  SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet"
 import { useIsMobile } from '@/hooks/use-mobile';
 import { getCategoryList } from '@/services/Category.services';
@@ -16,9 +11,10 @@ import { toast } from 'sonner';
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import Icon, { simpleIconCdn } from '@/lib/utils';
+import { simpleIconCdn } from '@/lib/utils';
 import Image from 'next/image';
+import { Plus, Minus, ChevronRight, ArrowUp, ArrowDown } from 'lucide-react';
+
 
 const Balance = ({ balance = 1243.72,
   income = 4200.5,
@@ -28,6 +24,8 @@ const Balance = ({ balance = 1243.72,
   const [selectedOptions, setSelectedOptions] = React.useState('')
   const [category, setCategory] = React.useState([])
   const [selectedcategory, setSelectedCategory] = React.useState({})
+  const [isSheetOpen, setIsSheetOpen] = React.useState({})
+
 
   const isMobile = useIsMobile();
 
@@ -55,149 +53,175 @@ const Balance = ({ balance = 1243.72,
   return (
     <section className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6" >
 
-      <div className="md:col-span-2 bg-white rounded-2xl p-5 shadow-md" style={{ backgroundColor: palettes.dark[800] }}>
+      <div
+        className="md:col-span-2 rounded-2xl p-5 shadow-2xl mb-8 border border-gray-700/50"
+        style={{ backgroundColor: palettes.dark[800] }}
+      >
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-xs text-gray-400">Net balance</p>
-            <h1 className="text-2xl md:text-3xl font-bold mt-1">{format(balance)}</h1>
-            <div className="mt-3 flex gap-4 text-sm text-gray-600">
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-green-600">▲</span>
+            <p className="text-sm font-medium text-gray-400 tracking-wide uppercase">Net Balance</p>
+            <h1 className="text-4xl md:text-5xl font-extrabold mt-1" style={{ color: palettes.primary[400] }}>
+              {format(balance)}
+            </h1>
+            <div className="mt-5 flex flex-col md:flex-row gap-4 md:gap-8 text-white">
+
+              {/* Income */}
+              <div className="flex items-center gap-3 p-2 rounded-xl bg-gray-700/50">
+                <ArrowUp className="w-5 h-5" style={{ color: palettes.green[500] }} />
                 <div>
-                  <div className="text-xs">Income</div>
-                  <div className="font-medium">{format(income)}</div>
+                  <div className="text-xs text-gray-400 uppercase tracking-wider">Income</div>
+                  <div className="font-semibold text-lg" style={{ color: palettes.green[500] }}>{format(income)}</div>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-red-600">▼</span>
+
+              {/* Expenses */}
+              <div className="flex items-center gap-3 p-2 rounded-xl bg-gray-700/50">
+                <ArrowDown className="w-5 h-5" style={{ color: palettes.red[500] }} />
                 <div>
-                  <div className="text-xs">Expenses</div>
-                  <div className="font-medium">{format(expenses)}</div>
+                  <div className="text-xs text-gray-400 uppercase tracking-wider">Expenses</div>
+                  <div className="font-semibold text-lg" style={{ color: palettes.red[500] }}>{format(expenses)}</div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Placeholder for sparkline / donut */}
-          <div className="hidden md:flex items-center"  >
-            <div className="w-36 h-36 rounded-full bg-gradient-to-tr from-indigo-100 to-indigo-50 flex items-center justify-center">
-              <div className="text-sm text-indigo-700">Spending
-                <div className="text-2xl font-semibold">60%</div>
+          {/* Placeholder for Donut Chart/Visualization */}
+          <div className="hidden md:flex items-center justify-center relative w-36 h-36">
+            <div
+              className="w-full h-full rounded-full border-[8px]"
+              style={{
+                borderColor: palettes.red[600],
+                borderLeftColor: palettes.dark[900], 
+              }}
+            >
+              <div className="absolute inset-0 m-2 rounded-full" style={{ backgroundColor: palettes.dark[900] }}></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center" style={{ color: palettes.primary[400] }}>
+                  <div className="text-sm text-gray-400 font-medium">Spent</div>
+                  <div className="text-2xl font-bold">{1}%</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Insights row (small cards) */}
-        <div className="mt-5 grid grid-cols-3 gap-3">
-          <div className="col-span-1 bg-gray-50 p-3 rounded-lg text-sm">
-            <div className="font-medium">This month</div>
-            <div className="mt-1">Spent {format(1200)}</div>
+        {/* Insights row (Revamped small cards) */}
+        <div className="mt-8 grid grid-cols-3 gap-3">
+          <div className="col-span-1 p-3 rounded-xl text-sm shadow-inner" style={{ backgroundColor: palettes.dark[900], border: '1px solid #334155' }}>
+            <div className="text-gray-400 text-xs uppercase tracking-wider">This Month</div>
+            <div className="font-medium text-white mt-1">{format(100)} spent</div>
           </div>
-          <div className="col-span-1 bg-gray-50 p-3 rounded-lg text-sm">
-            <div className="font-medium">Subscriptions</div>
-            <div className="mt-1">3 active</div>
+          <div className="col-span-1 p-3 rounded-xl text-sm shadow-inner" style={{ backgroundColor: palettes.dark[900], border: '1px solid #334155' }}>
+            <div className="text-gray-400 text-xs uppercase tracking-wider">Subscriptions</div>
+            <div className="font-medium text-white mt-1">{100} active</div>
           </div>
-          <div className="col-span-1 bg-gray-50 p-3 rounded-lg text-sm">
-            <div className="font-medium">Budget left</div>
-            <div className="mt-1">{format(300)}</div>
+          <div className="col-span-1 p-3 rounded-xl text-sm shadow-inner" style={{ backgroundColor: palettes.dark[900], border: '1px solid #334155' }}>
+            <div className="text-gray-400 text-xs uppercase tracking-wider">Budget Left</div>
+            <div className="font-medium mt-1" style={{ color: palettes.green[500] }}>{format(100)}</div>
           </div>
         </div>
       </div>
 
 
       {/* Quick actions column */}
+      <aside
+        className="bg-gray-800/80 w-full backdrop-blur-sm p-4 rounded-2xl shadow-2xl flex flex-col gap-4 max-w-sm mx-auto md:max-w-full"
+        style={{ borderColor: palettes.dark[800], border: '1px solid' }}
+      >
+        <div className="text-xl font-extrabold text-white tracking-wider">Quick Actions</div>
 
-      <Sheet style={{}}>
-        <aside className="bg-white rounded-2xl p-4 shadow-md flex flex-col gap-3" style={{ backgroundColor: palettes.dark[800] }}>
-          <div className="text-sm font-medium">Quick actions</div>
-          <SheetTrigger asChild>
-            <Button
-              onClick={() => setSelectedOptions('Expense')}
-              style={{
-                color: palettes.primary[400],
-                backgroundColor: palettes.slate[100],
-              }} className="font-bold">+ Add expense</Button>
-          </SheetTrigger>
-          <SheetTrigger asChild>
-            <Button
-              onClick={() => setSelectedOptions('Income')}
-              style={{
-                color: palettes.primary[400],
-                backgroundColor: palettes.slate[100],
-              }} className="font-bold ">+ Add income</Button>
-          </SheetTrigger>
-        </aside>
+        <div className="flex flex-col w-full md:grid-cols-2 p-4 gap-4">
 
+          {/* Add Expense Button (Themed Red for outflow) */}
+          <Button
+            onClick={() => setSelectedCategory('Expense')}
+            className="flex items-center justify-between p-4 shadow-lg hover:shadow-red-500/50 hover:scale-[1.02] transition-all duration-300"
+            style={{
+              backgroundColor: palettes.dark[800],
+              color: palettes.red[500],
+              border: `2px solid ${palettes.red[500]}`,
+            }}
+          >
+            <div className="flex items-center gap-3">
+              <Minus className="w-6 h-6 p-1 rounded-full bg-red-800 text-white" />
+              <span className="font-bold text-lg text-white">Add Expense</span>
+            </div>
+            <ChevronRight className="w-5 h-5 text-red-500" />
+          </Button>
+
+          {/* Add Income Button (Themed Green for inflow) */}
+          <Button
+            onClick={() => setSelectedCategory('Income')}
+            className="flex items-center justify-between p-4 shadow-lg hover:shadow-green-500/50 hover:scale-[1.02] transition-all duration-300"
+            style={{
+              backgroundColor: palettes.dark[800],
+              color: palettes.green[500],
+              border: `2px solid ${palettes.green[500]}`,
+            }}
+          >
+            <div className="flex items-center gap-3">
+              <Plus className="w-6 h-6 p-1 rounded-full bg-green-800 text-white" />
+              <span className="font-bold text-lg text-white">Add Income</span>
+            </div>
+            <ChevronRight className="w-5 h-5 text-green-500" />
+          </Button>
+        </div>
+      </aside>
+
+      <Sheet
+        open={isSheetOpen}
+        onOpenChange={setIsSheetOpen}
+      >
         <SheetContent
           side={isMobile ? "bottom" : "right"}
-          className={isMobile ? "rounded-t-4xl" : "rounded-l-xl"}
-          style={{ backgroundColor: palettes.dark[800], borderWidth: '0',borderRadius : isMobile ? '24px 24px 0px 0px' : '24px 0px 0px 24px' }}
+          style={{ backgroundColor: palettes.dark[800], borderWidth: '0', borderRadius: isMobile ? '24px 24px 0px 0px' : '' }}
         >
           <SheetHeader>
-            <SheetTitle className='text-2xl' style={{ color: palettes.primary[400] }}>Add {selectedOptions}</SheetTitle>
-            <SheetDescription style={{ color: palettes.light[100] }}>
-              {selectedOptions === "Expense" &&
-                "Add your expense details below and save when you're done."}
-
-              {selectedOptions === "Income" &&
-                "Add your income details below and save when you're done."}
-            </SheetDescription>
+            <h1 className="text-2xl font-extrabold text-white">
+              {selectedOptions === 'Income' ? 'Enter Details' : 'Add Expense'}
+            </h1>
           </SheetHeader>
           <div className="w-full">
-
-            <ScrollArea className="h-[calc(100dvh-24rem)] w-full  p-4">
-              <div className="flex flex-col space-y-2 gap-2">
-
-                {category.map(item => (
-                  <div
-                    key={item._id}
-                    style={{
-                      color: palettes.light[100],
-                      backgroundColor: 'transparent',
-                      padding: '8px'
-                    }} className="font-bold flex gap-6 justify-between"
-                    onClick={() => handleCategoryClick(item)}
-                  >
-                    <div className='flex flex-row font-bold flex gap-3'>
+            <ScrollArea className="h-[calc(100dvh-24rem)] w-full p-4">
+              <div className=" pt-2 space-y-2">
+                <p className="text-sm text-gray-400 mb-4">Select a category to continue:</p>
+                {category.map(category => {
+                  return (
+                    <div
+                      key={category.id}
+                      // onClick={() => onSelectCategory(category)}
+                      className="w-full flex items-center justify-between p-4 bg-gray-700/50 hover:bg-gray-700 rounded-xl transition duration-150"
+                    >
+                      <div className="flex items-center">
+                        <div className={`p-2 rounded-lg bg-gray-800 ${category.color}`}>
+                          <Image
+                            src={simpleIconCdn(category.icon)}
+                            style={{
+                              filter:
+                                "invert(75%) sepia(24%) saturate(1063%) hue-rotate(210deg) brightness(98%) contrast(92%)",
+                            }}
+                            alt={category.icon}
+                            width={28}
+                            height={28}
+                          />
+                        </div>
+                        <span className="ml-4 text-white font-medium">{category.name}</span>
+                      </div>
                       <Image
-                        src={simpleIconCdn(item.icon)}
                         style={{
-                          filter:
-                            "invert(75%) sepia(24%) saturate(1063%) hue-rotate(210deg) brightness(98%) contrast(92%)",
+                          color: palettes.primary[400],
                         }}
-                        alt={item.icon}
                         width={28}
                         height={28}
+                        src='/arrow.svg'
+                        alt={'arrow'}
                       />
-                      {item.name}
                     </div>
-                    <Image
-                      style={{
-                        color: palettes.primary[400],
-                      }}
-                      width={28}
-                      height={28}
-                      src='/arrow.svg'
-                      alt={item.icon}
-                    />
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </ScrollArea>
           </div>
-          {/* <SheetFooter>
-            <Button style={{
-              backgroundColor: palettes.primary[400],
-              color: palettes.slate[100],
-            }} className="font-bold" type="submit">Add {selectedOptions}</Button>
-            <SheetClose asChild>
-              <Button style={{
-                color: palettes.primary[400],
-                backgroundColor: palettes.slate[100],
-              }} className="font-bold" variant="outline">Close</Button>
-            </SheetClose>
-          </SheetFooter> */}
         </SheetContent>
       </Sheet>
     </section >

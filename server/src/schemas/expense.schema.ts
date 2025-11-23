@@ -28,6 +28,9 @@ export class Expense {
 
     @Prop({ required: true })
     username: string;
+
+    @Prop({ required: false })
+    notes: string;
 }
 
 
