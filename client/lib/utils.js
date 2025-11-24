@@ -45,3 +45,9 @@ export const Icon = ({ name, className = "w-5 h-5" }) => {
   );
 };
 
+
+
+export const formattedBalance = (balance, currency) => new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: currency || 'INR',
+}).format(balance || 0);

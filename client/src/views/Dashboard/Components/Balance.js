@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { Icon, simpleIconCdn } from '@/lib/utils';
+import { formattedBalance, Icon, simpleIconCdn } from '@/lib/utils';
 import Image from 'next/image';
 import { Plus, Minus, ChevronRight, ArrowUp, ArrowDown } from 'lucide-react';
 import { ExpenseDetailsForm } from './ExpenseDetailsForm';
@@ -36,10 +36,6 @@ const Balance = ({
     setPage(2)
   }
 
-  const formattedBalance = (balance, currency) => new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: currency || 'INR',
-  }).format(balance);
   return (
     <section className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6" >
 

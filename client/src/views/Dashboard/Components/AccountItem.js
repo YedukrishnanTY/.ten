@@ -1,12 +1,9 @@
-import { Icon } from '@/lib/utils';
+import { formattedBalance, Icon } from '@/lib/utils';
 import React from 'react'
 
 const AccountItem = ({ account, onClick }) => {
     const isNegative = account.balance < 0;
-    const formattedBalance = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: account.currency || 'USD',
-    }).format(account.balance);
+
 
     return (
         <div onClick={() => { onClick(account, 'edit') }} className="flex items-center justify-between p-3 rounded-lg transition-colors hover:bg-gray-700/50 cursor-pointer">
@@ -20,7 +17,7 @@ const AccountItem = ({ account, onClick }) => {
                 </div>
             </div>
             <div className={`font-semibold text-sm ${isNegative ? 'text-red-400' : 'text-green-400'}`}>
-                {formattedBalance}
+                {formattedBalance(account.balance || 0, account.currency)}
             </div>
         </div>
     );

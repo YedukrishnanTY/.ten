@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChevronRight, } from 'lucide-react';
 import { palettes } from '@/common/palettes';
-import { simpleIconCdn } from '@/lib/utils';
+import { formattedBalance, simpleIconCdn } from '@/lib/utils';
 import Image from 'next/image';
 import { TransactionDetailModal } from './TransactionDetailModal';
 
@@ -69,7 +69,7 @@ function RecentTransaction({ recent, category }) {
                             {/* Amount */}
                             <div className="flex items-center gap-1">
                                 <span className={`font-bold text-lg`} style={{ color: amountColor }}>
-                                    {isExpense ? '-' : '+'} {format(t.price)}
+                                    {isExpense ? '-' : '+'} {formattedBalance(t.price, t.currency)}
                                 </span>
                                 <ChevronRight className="w-4 h-4 text-gray-500 ml-2" />
                             </div>
