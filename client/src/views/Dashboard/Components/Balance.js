@@ -36,7 +36,6 @@ const Balance = ({
     setPage(2)
   }
 
-  console.log(accountDetails, 'accountDetails')
   const formattedBalance = (balance, currency) => new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: currency || 'INR',

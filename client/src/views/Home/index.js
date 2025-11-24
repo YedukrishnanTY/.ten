@@ -84,7 +84,7 @@ export default function LandingPage({ }) {
           <div className="relative p-8 rounded-2xl shadow-2xl backdrop-blur-sm"
             style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', border: `1px solid ${palettes.primary[400]}40` }}>
             <div className="h-64 rounded-xl bg-gray-700/50 flex items-center justify-center text-gray-400 font-mono text-sm">
-              Dashboard Preview Mockup
+              {/* Dashboard Preview Mockup */}
             </div>
             <div className="absolute -bottom-4 -left-4 w-12 h-12 rounded-full" style={{ backgroundColor: palettes.primary[400] + '33' }}></div>
             <div className="absolute -top-4 -right-4 w-6 h-6 rounded-full" style={{ backgroundColor: palettes.primary[400] + '33' }}></div>
@@ -185,8 +185,8 @@ export default function LandingPage({ }) {
 
       {/* FOOTER */}
       <footer className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-t border-gray-700/50 text-sm text-gray-400">
-        <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-          <div>© {new Date().getFullYear()} ExpenseTracker — Financial Freedom, Simplified.</div>
+        <div className="flex flex-col md:flex-row justify-center items-center gap-4 center">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4 text-center">© {new Date().getFullYear()} ExpenseTracker — Financial Freedom, Simplified.</div>
           {/* The original placeholder links are commented out:
                     <div className="flex gap-4">
                         <a href="/privacy" className="hover:text-white transition duration-200">Privacy</a>

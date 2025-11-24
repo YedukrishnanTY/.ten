@@ -144,13 +144,13 @@ export default function ChartAndSubs({ currencyList, profile, accounts = [], get
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-8">
             {/* Chart Card */}
             <div className="lg:col-span-2 rounded-2xl p-5 shadow-2xl border border-gray-700/50" style={{ backgroundColor: palettes.dark[800] }}>
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-4 flex-wrap">
                     <div>
                         <h3 className="font-extrabold text-xl text-white">Spending Trend</h3>
                         <div className="text-sm text-gray-400">Overview of income & expense by currency</div>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 flex-wrap">
                         <div className="flex items-center gap-2">
                             <label className="flex items-center gap-2 text-sm text-gray-300">
                                 <Checkbox checked={showIncome} onCheckedChange={(v) => setShowIncome(Boolean(v))} />
@@ -317,7 +317,7 @@ export default function ChartAndSubs({ currencyList, profile, accounts = [], get
                 </div>
 
                 {/* Insights metrics */}
-                <div className="mt-6 grid grid-cols-3 gap-4 text-white">
+                {/* <div className="mt-6 grid grid-cols-3 gap-4 text-white">
                     <div className="p-3 rounded-xl" style={{ backgroundColor: palettes.dark[900], border: '1px solid #334155' }}>
                         <div className="text-gray-400 text-xs uppercase tracking-wider">Top category</div>
                         <div className="font-semibold text-base mt-1 text-white">Food & Drink</div>
@@ -330,7 +330,7 @@ export default function ChartAndSubs({ currencyList, profile, accounts = [], get
                         <div className="text-gray-400 text-xs uppercase tracking-wider">Forecast total</div>
                         <div className="font-semibold text-base mt-1 text-white">{formatCurrency(2200)}</div>
                     </div>
-                </div>
+                </div> */}
             </div>
 
             {/* Accounts List Card */}
