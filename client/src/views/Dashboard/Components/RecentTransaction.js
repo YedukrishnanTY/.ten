@@ -41,7 +41,7 @@ function RecentTransaction({ recent, category }) {
                     return (
                         <li
                             key={t._id}
-                            className="py-3 px-2 flex items-center justify-between rounded-lg hover:bg-gray-700/50 transition duration-150 cursor-pointer"
+                            className="py-3 px-2 flex  items-center justify-between rounded-lg hover:bg-gray-700/50 transition duration-150 cursor-pointer"
                             onClick={() => handleTransactionClick(t)}
                         >
                             <div className="flex items-center gap-4">
@@ -68,7 +68,7 @@ function RecentTransaction({ recent, category }) {
 
                             {/* Amount */}
                             <div className="flex items-center gap-1">
-                                <span className={`font-bold text-lg`} style={{ color: amountColor }}>
+                                <span className={`font-bold text-lg`} style={{ color: amountColor, width: 'max-content' }}>
                                     {isExpense ? '-' : '+'} {formattedBalance(t.price, t.currency)}
                                 </span>
                                 <ChevronRight className="w-4 h-4 text-gray-500 ml-2" />
