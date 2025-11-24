@@ -41,6 +41,6 @@ const uri = process.env.DATABASE_URL || '';
   ],
   controllers: [AuthController, CurrenciesController, CategoryController, ExpenseController, AccountController],
   providers: [AuthService, CurrenciesService, JwtStrategy, CategoryService, RolesGuard, Reflector, ExpenseService, AccountService, TokenService],
-  exports: [AuthService, JwtStrategy],
+  exports: [AuthService, JwtStrategy, AccountService],
 })
 export class AppModule { }

@@ -47,7 +47,7 @@ export class ExpenseController {
     @UseGuards(AuthGuard('jwt'))
     @Get('/Create')
     @HttpCode(HttpStatus.OK)
-    async createExpense(@Headers() headers: Record<string, any>, @Body() body: Record<string, any>) {
+    async createExpense(@Headers() headers: Record<string, any>, @Body() body: { category_id: string, expenseAmount: number } & Record<string, any>) {
         const username = this.tokenService.getUsernameFromHeaders(headers);
         const expensePayload = { ...body, username };
         const created = await this.ExpenseService.createExpense(expensePayload);

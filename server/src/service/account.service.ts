@@ -26,7 +26,7 @@ export class AccountService {
         return this.accountModel.find({ _id }).exec();
     }
 
-    async updateAccount(payload: { _id: string } & Partial<Account>) {
+    async updateAccount(payload: { _id: string  } & Partial<Account>) {
         if (!payload._id) {
             throw new Error("Account _id is required for update.");
         }
