@@ -22,13 +22,13 @@ import { AccountController } from './controller/account.controller';
 import { Account, AccountSchema } from './schemas/account.schemas';
 import { TokenService } from './service/token.services';
 
+require('dotenv').config();
+
+const uri = process.env.DATABASE_URL || '';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-    MongooseModule.forRoot(process.env.DATABASE_URL || ''),
+    MongooseModule.forRoot(uri),
     MongooseModule.forFeature([{ name: Auth.name, schema: AuthSchema }]),
     MongooseModule.forFeature([{ name: Currencies.name, schema: CurrenciesSchema }]),
     MongooseModule.forFeature([{ name: Category.name, schema: CategorySchema }]),
