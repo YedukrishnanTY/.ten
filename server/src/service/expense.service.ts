@@ -18,21 +18,21 @@ export class ExpenseService {
         const { userName } = payload;
         return this.expenseDocument.find({ username: userName }).exec();
     }
-    async createExpense(payload: { category_id: string, expenseAmount: number } & Partial<Expense>) {
-        const accountFind = await this.accountService.getAccountById(payload.category_id);
+    async createExpense(payload: { accountId: string, price: number } & Partial<Expense>) {
+        const accountFind = await this.accountService.getAccountById(payload.accountId);
         console.log(accountFind, 'accountFind')
         const account = accountFind?.[0];
         if (!account) {
             throw new Error("Account not found");
         }
         const prevAmount = Number(account.expenseAmount) || 0;
-        const currentExpense = Number(payload.expenseAmount) || 0;
+        const currentExpense = Number(payload.price) || 0;
 
         const payloadForAccount = {
-            _id: payload.category_id,
+            _id: payload.accountId,
             expenseAmount: prevAmount + currentExpense,
         };
-        const updateExpense = await this.accountService.updateAccount(payloadForAccount)
+        const updateExpense = await this.accountService.updateAccount(payloadForAccount);
         const created = new this.expenseDocument(payload);
         return created.save();
     }
