@@ -1,14 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-const cors = require('cors')
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.enableCors(cors({
-    origin: ['http://localhost:3000', 'https://ten-bay-beta.vercel.app/'],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  app.enableCors({
+    origin: ['http://localhost:3000', 'https://ten-bay-beta.vercel.app'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Authorization, Accept',
     credentials: true,
-  }));
-  await app.listen(3000);
+  });
+
+  const port = process.env.PORT ? Number(process.env.PORT) : 3000;
+  await app.listen(port);
 }
 bootstrap();
