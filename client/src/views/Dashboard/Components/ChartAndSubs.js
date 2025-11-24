@@ -179,7 +179,7 @@ export default function ChartAndSubs({ currencyList, profile, accounts = [], get
                 <div className="rounded-xl p-4 shadow-inner" style={{ background: 'linear-gradient(180deg, rgba(17,24,39,0.9), rgba(8,10,14,0.8))', border: '1px solid #334155' }}>
                     <div className="flex items-center justify-between mb-3">
                         <div className="font-semibold text-lg text-white">Balance & Flow</div>
-                        <div className="text-xs text-gray-400">Interactive · Colorful · Modern</div>
+                        {/* <div className="text-xs text-gray-400">Interactive · Colorful · Modern</div> */}
                     </div>
 
                     <div style={{ width: '100%', height: 320 }}>
