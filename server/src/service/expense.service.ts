@@ -30,7 +30,7 @@ export class ExpenseService {
 
         const payloadForAccount = {
             _id: payload.category_id,
-            expenseAmount: prevAmount - currentExpense,
+            expenseAmount: prevAmount + currentExpense,
         };
         const updateExpense = await this.accountService.updateAccount(payloadForAccount)
         const created = new this.expenseDocument(payload);
