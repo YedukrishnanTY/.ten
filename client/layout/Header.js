@@ -113,14 +113,13 @@ const ProfileDropdown = ({ profile, onLogout, onCurrencyChange }) => {
         <div className="relative" ref={dropdownRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center space-x-2 p-1.5 rounded-full hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-[#a78bfa]"
+                className="flex items-center space-x-2 p-1.5 rounded-full "
                 aria-expanded={isOpen}
             >
                 {/* Avatar */}
                 <div className="w-10 h-10 rounded-full bg-[#a78bfa] flex items-center justify-center shadow-md ring-2 ring-[#a78bfa] text-white font-semibold text-lg">
                     {profile.name ? profile.name?.substring(0, 2).toUpperCase() : '-'}
                 </div>
-                <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : 'rotate-0'}`} />
             </button>
 
             {/* Dropdown Content */}
