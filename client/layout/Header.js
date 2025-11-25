@@ -66,7 +66,7 @@ function Header({ promptEvent, handleInstallClick }) {
                     <></>
                 )}
             </div>
-            {(promptEvent && path === '/dashboard') ? <Button
+            {(promptEvent && path === '/') ? <Button
                 style={{
                     background: palettes?.primary[400]
                 }} variant='primary' className='font-bold'
