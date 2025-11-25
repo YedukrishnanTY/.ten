@@ -22,11 +22,11 @@ export const metadata = {
   openGraph: {
     title: "FinX - Expense Tracker",
     description: "Easily track, manage, and visualize your personal finances with Flow. Achieve financial clarity today.",
-    url: "/logo2.png", // Replace with your app's actual URL
+    url: "/logo3.png", // Replace with your app's actual URL
     siteName: "FinX",
     images: [
       {
-        url: "/logo2.png", // Path to your 1200x630px social preview image
+        url: "/logo3.png", // Path to your 1200x630px social preview image
         width: 1200,
         height: 630,
         alt: "FinX Expense Tracker App Dashboard Screenshot",
@@ -38,7 +38,7 @@ export const metadata = {
 
   // --- Twitter Metadata ---
   twitter: {
-    card: "summary_large_image", // Recommended for better visual appeal
+    card: "/logo3.png", // Recommended for better visual appeal
     title: "FinX: Effortless Expense Tracking",
     description: "Get financial clarity. Track every expense, visualize your budget, and save money with the Flow app.",
     creator: "@YOUR_TWITTER_HANDLE", // Replace with your app's Twitter handle
@@ -54,7 +54,7 @@ export default function RootLayout({ children, ...props }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="rgb(167, 139, 250)" />
-        <link rel="icon" href="/logo2.png" />
+        <link rel="icon" href="/logo3.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <link rel="apple-touch-icon" href="/logo3.png" />
