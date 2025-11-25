@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation'
 import React from 'react'
 
-function Header({ promptEvent,  handleInstallClick }) {
+function Header({ promptEvent, handleInstallClick }) {
     const router = useRouter();
     const path = usePathname()
     const [loading, setLoading] = React.useState(false);
@@ -66,7 +66,7 @@ function Header({ promptEvent,  handleInstallClick }) {
                     <></>
                 )}
             </div>
-            {promptEvent ? <Button
+            {(promptEvent && path === '/dashboard') ? <Button
                 style={{
                     background: palettes?.primary[400]
                 }} variant='primary' className='font-bold'
@@ -74,7 +74,7 @@ function Header({ promptEvent,  handleInstallClick }) {
                 Install FinX
             </Button> : <></>}
 
-          
+
         </div>
     )
 }
