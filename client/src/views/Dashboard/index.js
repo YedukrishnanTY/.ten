@@ -94,7 +94,10 @@ export default function HomePage({
             {/* Header */}
             <header className="flex items-center justify-between mb-6">
                 <div>
-                    <h2 className="text-lg md:text-xl font-semibold">Welcome back, {profile?.name}</h2>
+                    <h2 className="text-lg md:text-xl font-semibold">Welcome back, {profile?.name
+                        ? profile.name.charAt(0).toUpperCase() + profile.name.slice(1)
+                        : ''
+                    }</h2>
                     <p className="text-sm text-gray-500">Overview of your money at a glance</p>
                 </div>
 

@@ -128,7 +128,10 @@ const ProfileDropdown = ({ profile, onLogout, onCurrencyChange }) => {
                         {/* User Info Section */}
                         <div className="flex items-center space-x-3 border-b pb-3 mb-3">
                             <User className="w-5 h-5 text-[#a78bfa]" />
-                            <div className="text-sm font-semibold text-gray-900 truncate">{profile.name}</div>
+                            <div className="text-sm font-semibold text-gray-900 truncate">{profile?.name
+                                ? profile.name.charAt(0).toUpperCase() + profile.name.slice(1)
+                                : ''
+                            }</div>
                         </div>
 
 
