@@ -8,10 +8,10 @@ export const ExpenseDetailsForm = ({ category, buttonDisabled, onSave, accounts 
     const [expenseData, setExpenseData] = React.useState({
         categoryId: category?._id,
         categoryName: category?.name,
-        accountId: accounts?.[0]._id,
-        accountName: accounts?.[0].accountName,
+        accountId: accounts?.[0]?._id,
+        accountName: accounts?.[0]?.accountName,
         price: '',
-        currency: accounts?.[0].currency,
+        currency: accounts?.[0]?.currency,
         notes: '',
     });
 
