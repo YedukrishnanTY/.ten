@@ -45,11 +45,39 @@ function Main({ children }) {
     };
 
 
+    // drop in a client-side file and run
+    (function () {
+        if (typeof window === 'undefined') return;
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.bottom = '12px';
+        overlay.style.left = '12px';
+        overlay.style.zIndex = 99999;
+        overlay.style.padding = '6px 8px';
+        overlay.style.background = 'rgba(0,0,0,0.6)';
+        overlay.style.color = 'white';
+        overlay.style.fontSize = '12px';
+        overlay.style.borderRadius = '6px';
+        overlay.style.fontFamily = 'system-ui, Arial';
+        overlay.style.pointerEvents = 'none';
+        document.body.appendChild(overlay);
+
+        window.addEventListener('focusin', (e) => {
+            const el = e.target;
+            if (!el || !('nodeType' in el)) return;
+            const cs = window.getComputedStyle(el);
+            overlay.textContent = `focused: ${el.tagName.toLowerCase()} font-size:${cs.fontSize} line-height:${cs.lineHeight} transform:${cs.transform === 'none' ? 'none' : cs.transform}`;
+        });
+
+        window.addEventListener('focusout', () => overlay.textContent = '');
+    })();
+
+
 
     return (
         <div style={{ display: 'flex', flex: '1 0 0', flexDirection: 'column', background: '#0f172a' }}>
             <Interceptor />   {/* run only on client */}
-            <Header promptEvent={promptEvent}  handleInstallClick={handleInstallClick} />
+            <Header promptEvent={promptEvent} handleInstallClick={handleInstallClick} />
             <div>{children}</div>
             <Toaster />
         </div>
