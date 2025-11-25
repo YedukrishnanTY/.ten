@@ -18,8 +18,8 @@ export default function LandingPage({ }) {
       })
       .catch((err) => {
         localStorage.removeItem('a');
-      }).finally(() => {
         setLoading(false);
+      }).finally(() => {
       });
   };
   React.useEffect(() => {

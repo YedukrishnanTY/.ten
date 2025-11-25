@@ -13,10 +13,6 @@ function Header({ promptEvent,  handleInstallClick }) {
     const [loading, setLoading] = React.useState(false);
     const [profile, setProfile] = React.useState(null);
 
-
-
-
-
     const handleLogo = () => {
         setLoading(true)
         getProfileDetails()
