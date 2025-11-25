@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectGroup, SelectLabel, SelectTrigger, SelectV
 import { palettes } from "@/common/palettes";
 import { Icon } from "@/lib/utils";
 
-export default function AddModal({ isOpen, onClose, onSave, currencyList, profile, editDetails, handleDelete }) {
+export default function AddModal({ isOpen, onClose, onSave, currencyList, profile, editDetails, handleDelete, buttonDisabled }) {
     const [name, setName] = React.useState("");
     const [balance, setBalance] = React.useState("");
     const [selectedCurrency, setSelectedCurrency] = React.useState(profile?.currency || '');
@@ -175,6 +175,7 @@ export default function AddModal({ isOpen, onClose, onSave, currencyList, profil
                             <Button
                                 type="button"
                                 variant="destructive"
+                                disabled={buttonDisabled || false}
                                 onClick={() => {
                                     handleDelete(editDetails);
                                     onClose();
@@ -191,6 +192,7 @@ export default function AddModal({ isOpen, onClose, onSave, currencyList, profil
                         >
                             {/* Cancel Button */}
                             <Button
+                                disabled={buttonDisabled || false}
                                 type="button"
                                 variant="secondary"
                                 onClick={onClose}
@@ -206,6 +208,7 @@ export default function AddModal({ isOpen, onClose, onSave, currencyList, profil
                                     color: palettes.slate[100],
                                 }}
                                 type="submit"
+                                disabled={buttonDisabled || false}
                                 className="bg-gray-700 hover:bg-gray-600 text-gray-200 font-semibold transition-all duration-200 w-full sm:w-auto"
                             >
                                 {isEditMode ? "Update Account" : "Save Account"}

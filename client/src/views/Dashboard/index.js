@@ -25,7 +25,8 @@ export default function HomePage({
     const [accounts, setAccounts] = React.useState([]);
     const [category, setCategory] = React.useState([])
     const [selectedcategory, setSelectedCategory] = React.useState({})
-    const [selectedOptions, setSelectedOptions] = React.useState('')
+    const [selectedOptions, setSelectedOptions] = React.useState('');
+    const [buttonDisabled, setButtonDisabled] = React.useState(false)
 
     const loadData = async () => {
         try {
@@ -57,6 +58,7 @@ export default function HomePage({
     };
 
     const handleExpense = (data) => {
+        setButtonDisabled(true)
         if (!data?.price || isNaN(Number(data.price))) return toast.warning('please add a valid amount')
         const payload = {
             isIncome: selectedOptions === 'Expense' ? false : true,
@@ -65,11 +67,13 @@ export default function HomePage({
         }
         createExpenseOrIncome(payload)
             .then(res => {
-                toast.success('expense added')
+                toast.success('Added Succesfully')
                 loadData();
             }).catch(err => {
                 loadData();
                 toast.error(err?.message || 'Something went wrong.');
+            }).finally(() => {
+                setButtonDisabled(false)
             })
     }
 
@@ -104,13 +108,16 @@ export default function HomePage({
                 handleExpense={handleExpense}
                 selectedOptions={selectedOptions}
                 setSelectedOptions={setSelectedOptions}
+                buttonDisabled={buttonDisabled}
+                setButtonDisabled={setButtonDisabled}
             />
 
             {/* Middle row: Charts + Subscriptions/Budgets */}
             <ChartAndSubs
                 accountDetails={accounts || {}}
                 currencyList={currencyList} profile={profile} accounts={accounts?.accounts || []}
-                getList={loadData}
+                getList={loadData} buttonDisabled={buttonDisabled}
+                setButtonDisabled={setButtonDisabled}
             />
 
             {/* Recent transactions */}

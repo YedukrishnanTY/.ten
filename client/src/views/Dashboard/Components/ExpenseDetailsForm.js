@@ -4,7 +4,7 @@ import Image from "next/image";
 import React from "react";
 
 
-export const ExpenseDetailsForm = ({ category, onBack, onSave, accounts }) => {
+export const ExpenseDetailsForm = ({ category, buttonDisabled, onSave, accounts }) => {
     const [expenseData, setExpenseData] = React.useState({
         categoryId: category?._id,
         categoryName: category?.name,
@@ -134,6 +134,7 @@ export const ExpenseDetailsForm = ({ category, onBack, onSave, accounts }) => {
             {/* Save Button */}
             <div className="mt-6">
                 <button
+                    disabled={buttonDisabled || false}
                     type="submit"
                     onClick={handleSubmit}
                     className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-xl transition duration-200 shadow-lg shadow-indigo-500/50"

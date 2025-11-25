@@ -20,9 +20,9 @@ import { ExpenseDetailsForm } from './ExpenseDetailsForm';
 const Balance = ({
   accounts, category,
   accountDetails,
-  selectedcategory, setSelectedCategory, handleExpense, selectedOptions, setSelectedOptions
+  selectedcategory, setSelectedCategory, handleExpense, selectedOptions, setSelectedOptions,
+  buttonDisabled
 }) => {
-  const format = (v) => v.toLocaleString(undefined, { style: 'currency', currency: 'USD' });
 
   const [isSheetOpen, setIsSheetOpen] = React.useState(false)
   const [page, setPage] = React.useState(1)
@@ -157,7 +157,7 @@ const Balance = ({
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = palettes.dark[900]}
             className="flex items-center justify-between p-6 shadow-lg transition-all duration-300"
             style={{
-              backgroundColor: '#272d37',
+              backgroundColor: palettes.dark[700],
               color: palettes.red[500],
               // border: `2px solid ${palettes.red[500]}`,
             }}
@@ -246,7 +246,7 @@ const Balance = ({
               </ScrollArea>
             </div>
             :
-            <ExpenseDetailsForm category={selectedcategory} accounts={accounts} onSave={handleExpense} />
+            <ExpenseDetailsForm category={selectedcategory} accounts={accounts} onSave={handleExpense} buttonDisabled={buttonDisabled} />
           }
         </SheetContent>
       </Sheet>

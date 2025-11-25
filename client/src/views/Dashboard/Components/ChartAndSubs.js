@@ -26,6 +26,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
+import { set } from 'react-hook-form';
 
 // Helper to sanitize keys for recharts data keys
 function sanitizeKey(label = '') {
@@ -62,7 +63,10 @@ function buildRechartsDataFromChartData(chartData) {
     return { data: points, series };
 }
 
-export default function ChartAndSubs({ currencyList, profile, accounts = [], getList, accountDetails = {} }) {
+export default function ChartAndSubs({
+    currencyList, profile, accounts = [],
+    getList, accountDetails = {}, buttonDisabled, setButtonDisabled
+}) {
     const [isDialogOpen, setIsDialogOpen] = React.useState(false);
     const [editDetails, setEditDetails] = React.useState({});
 
@@ -83,20 +87,23 @@ export default function ChartAndSubs({ currencyList, profile, accounts = [], get
     };
 
     const handleAddAccount = async (payload) => {
+        setButtonDisabled(true)
         if (editDetails?._id) {
             EditAccount(payload)
                 .then(() => {
                     toast.success('Edited successfully');
                     getList();
                 })
-                .catch(err => toast.error(err?.message || 'failed to add'));
+                .catch(err => toast.error(err?.message || 'failed to add'))
+                .finally(() => { setButtonDisabled(false) })
         } else {
             AddAccount(payload)
                 .then(() => {
                     toast.success('added successfully');
                     getList();
                 })
-                .catch(err => toast.error(err?.message || 'failed to add'));
+                .catch(err => toast.error(err?.message || 'failed to add'))
+                .finally(() => { setButtonDisabled(false) })
         }
     };
 
@@ -107,19 +114,13 @@ export default function ChartAndSubs({ currencyList, profile, accounts = [], get
                     toast.success('Deleted successfully');
                     getList();
                 })
-                .catch(err => toast.error(err?.message || 'failed to delete'));
+                .catch(err => toast.error(err?.message || 'failed to delete'))
+                .finally(() => { setButtonDisabled(false) })
         } else {
             toast.error('failed to delete your account');
         }
     };
 
-    const formatCurrency = (v, cur = 'USD') => {
-        try {
-            return Number(v).toLocaleString(undefined, { style: 'currency', currency: cur });
-        } catch (e) {
-            return String(v);
-        }
-    };
 
     // build chart data from accountDetails.chartData if present
     const chartPayload = accountDetails?.chartData ?? null;
@@ -347,7 +348,7 @@ export default function ChartAndSubs({ currencyList, profile, accounts = [], get
                     ))}
                 </ScrollArea>
 
-                <AddAccountItem onClick={handleOpenModal} currencyList={currencyList} profile={profile} />
+                <AddAccountItem onClick={handleOpenModal} currencyList={currencyList} profile={profile} buttonDisabled={buttonDisabled} />
 
                 <Addmodal
                     isOpen={isDialogOpen}
@@ -357,6 +358,7 @@ export default function ChartAndSubs({ currencyList, profile, accounts = [], get
                     onSave={handleAddAccount}
                     editDetails={editDetails}
                     handleDelete={handleDelete}
+                    buttonDisabled={buttonDisabled}
                 />
             </div>
         </section>
