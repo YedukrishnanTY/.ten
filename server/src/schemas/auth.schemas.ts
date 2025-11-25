@@ -3,7 +3,7 @@ import { HydratedDocument } from 'mongoose';
 
 export type AuthDocument = HydratedDocument<Auth>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Auth {
     @Prop({ required: true, unique: true, lowercase: true, trim: true })
     name: string;
@@ -11,12 +11,18 @@ export class Auth {
     @Prop({ required: true, minlength: 6 })
     password: string;
 
-
     @Prop({ type: [String], default: [] })
     role: string[];
 
     @Prop({ required: true })
     currency: string;
+
+    @Prop()
+    ip: string;
+
+    @Prop()
+    userAgent: string;
 }
+
 
 export const AuthSchema = SchemaFactory.createForClass(Auth);

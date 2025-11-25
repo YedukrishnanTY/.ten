@@ -9,7 +9,8 @@ import {
     HttpStatus,
     HttpException,
     Headers,
-    UseGuards
+    UseGuards,
+    Req
 } from '@nestjs/common';
 import { AuthService } from '../service/auth.service';
 import { Auth } from "../schemas/auth.schemas";
@@ -27,31 +28,55 @@ export class AuthController {
 
     // POST /users/register
     @Post('/register')
-    async create(@Body() User: Auth) {
-        // check existing
+    @Post('/register')
+    async create(@Body() User: Auth, @Req() req: Request) {
+
+        // Check existing user
         const existing = await this.AuthService.findUserByUserName(User.name);
         if (existing) {
             throw new HttpException(
-                {
-                    statusCode: HttpStatus.BAD_REQUEST,
-                    message: 'Email already in use',
-                },
+                { statusCode: 400, message: 'Email already in use' },
                 HttpStatus.BAD_REQUEST
             );
         }
+
         if (!User.currency) {
             throw new HttpException(
-                {
-                    statusCode: HttpStatus.BAD_REQUEST,
-                    message: 'Please select a currency',
-                },
+                { statusCode: 400, message: 'Please select a currency' },
                 HttpStatus.BAD_REQUEST
             );
         }
-        const user = await this.AuthService.createUser(User);
+
+        function normalizeIp(rawIp: string | undefined | null): string | null {
+            if (!rawIp) return null;
+            const first = rawIp.split(',')[0].trim();
+            return first.replace(/^::ffff:/, '');
+        }
+        function getClientIp(req: any): string | null {
+            const forwarded = (req.headers && (req.headers['x-forwarded-for'] || req.headers['X-Forwarded-For'])) as string | undefined;
+            if (forwarded) return normalizeIp(forwarded);
+
+            const raw = req.raw || req; 
+            const socketAddr = raw?.socket?.remoteAddress || raw?.connection?.remoteAddress || raw?.remoteAddress;
+            return normalizeIp(socketAddr);
+        }
+        const ip = getClientIp(req) || '';
+
+        console.log(ip, 'ip')
+
+        const userAgent = req.headers['user-agent'];
+
+        const user = await this.AuthService.createUser({
+            ...User,
+            ip: ip,
+            userAgent,
+        });
+
         const { password, ...safe } = user.toObject ? user.toObject() : user;
         return safe;
     }
+
+
 
     // GET /users/get-profile-details
 

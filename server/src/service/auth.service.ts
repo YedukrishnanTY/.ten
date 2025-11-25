@@ -9,7 +9,7 @@ export class AuthService {
     constructor(
         @InjectModel(Auth.name) private readonly AuthModel: Model<AuthDocument>,
     ) { }
-    async createUser(userData: { name: string; password: string; currency: string }) {
+    async createUser(userData: { name: string; password: string; currency: string, ip: string, userAgent: string }) {
         const { name, password, currency } = userData;
         const salt = await bcrypt.genSalt(10);
         const hashed = await bcrypt.hash(password, salt);
