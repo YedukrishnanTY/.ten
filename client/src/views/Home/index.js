@@ -61,7 +61,8 @@ export default function LandingPage({ }) {
                 backgroundColor: palettes.primary[400],
                 color: palettes.slate[900], // Darker text on vibrant background
                 // Added focus/hover effects via className mock
-                boxShadow: `0 4px 15px -3px ${palettes.primary[600]}`
+                boxShadow: `0 4px 15px -3px ${palettes.primary[600]}`,
+                borderRadius: '8px'
               }}>
               Start Tracking Now
             </Button>
@@ -69,11 +70,12 @@ export default function LandingPage({ }) {
             {/* Secondary Button: Login */}
             <Button
               onClick={() => router.push('/login')}
-              className="px-8 py-3 rounded-xl text-lg border-2"
+              className="px-8 py-3 rounded-xl text-lg border"
               style={{
                 color: palettes.primary[400],
                 borderColor: palettes.primary[400],
                 backgroundColor: 'transparent',
+                borderRadius: '8px'
               }}>
               Already a user
             </Button>
