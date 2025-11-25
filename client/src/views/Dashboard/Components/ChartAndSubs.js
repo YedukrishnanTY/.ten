@@ -99,7 +99,7 @@ export default function ChartAndSubs({
         } else {
             AddAccount(payload)
                 .then(() => {
-                    toast.success('added successfully');
+                    toast.success('Added successfully');
                     getList();
                 })
                 .catch(err => toast.error(err?.message || 'failed to add'))
