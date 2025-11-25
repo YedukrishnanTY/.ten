@@ -26,7 +26,7 @@ export const metadata = {
     siteName: "Flow",
     images: [
       {
-        url: "/logo.png", // Path to your 1200x630px social preview image
+        url: "/logo1.png", // Path to your 1200x630px social preview image
         width: 1200,
         height: 630,
         alt: "Flow Expense Tracker App Dashboard Screenshot",

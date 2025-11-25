@@ -48,7 +48,7 @@ function Header() {
 
     return (
         <div className='flex items-center justify-between px-2 py-2 sm:flex-row'>
-            <Image src="/logo.png" onClick={() => { handleLogo() }} alt="Logo" width={60} height={40} className='cursor-pointer' />
+            <Image src="/logo1.png" onClick={() => { handleLogo() }} alt="Logo1" width={60} height={40} className='cursor-pointer' />
             <div className='flex gap-4 flex-row items-center'>
                 {loading ? (
                     // Loading Spinner (simple Tailwind)
