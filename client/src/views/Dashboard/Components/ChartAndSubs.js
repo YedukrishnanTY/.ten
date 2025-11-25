@@ -61,7 +61,7 @@ export default function ChartAndSubs({ currencyList, profile, accounts = [], get
     const [isDialogOpen, setIsDialogOpen] = React.useState(false);
     const [editDetails, setEditDetails] = React.useState({});
 
-    const [chartType, setChartType] = React.useState('composed'); // 'line' | 'area' | 'bar' | 'composed'
+    const [chartType, setChartType] = React.useState('bar'); // 'line' | 'area' | 'bar' | 'composed'
     const [showIncome, setShowIncome] = React.useState(true);
     const [showExpense, setShowExpense] = React.useState(true);
     const [visibleSeries, setVisibleSeries] = React.useState(new Set());
@@ -167,7 +167,6 @@ export default function ChartAndSubs({ currencyList, profile, accounts = [], get
                                 <SelectValue placeholder="Chart type" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="composed">Composed (bars + lines)</SelectItem>
                                 <SelectItem value="area">Area (smooth)</SelectItem>
                                 <SelectItem value="bar">Bar</SelectItem>
                                 <SelectItem value="line">Line</SelectItem>

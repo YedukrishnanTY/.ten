@@ -4,12 +4,12 @@ import { Button } from '@/components/ui/button'
 import { getProfileDetails } from '@/services/Auth.services';
 import { ChevronDown, CurrencyIcon, LogOut, SearchIcon } from 'lucide-react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation'
-
+import { useRouter, usePathname } from 'next/navigation'
 import React from 'react'
 
 function Header() {
     const router = useRouter();
+    const path = usePathname()
     const [loading, setLoading] = React.useState(false);
     const [profile, setProfile] = React.useState(null);
 
@@ -43,8 +43,9 @@ function Header() {
     };
 
     React.useEffect(() => {
-        handleLogo()
-    }, [])
+        if (path === '/' || path === '/dashboard')
+            handleLogo()
+    }, [path])
 
     return (
         <div className='flex items-center justify-between px-2 py-2 sm:flex-row'>

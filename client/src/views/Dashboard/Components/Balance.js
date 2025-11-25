@@ -141,9 +141,9 @@ const Balance = ({
       </div>
 
 
-      {/* Quick actions column */}
+      {/* Quick actions column       */}
       <aside
-        className="bg-gray-800/80 w-full p-4 rounded-2xl  flex flex-col gap-4 max-w-sm mx-auto md:max-w-full"
+        className="bg-gray-800/80 w-full p-4 rounded-2xl  flex flex-col gap-4 max-w-sm mx-auto md:max-w-full shadow-2xl border border-gray-700/50"
         style={{ background: palettes.dark[800], }}
       >
         <div className="text-xl font-extrabold text-white tracking-wider">Quick Actions</div>

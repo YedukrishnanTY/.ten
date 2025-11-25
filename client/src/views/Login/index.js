@@ -42,7 +42,7 @@ function Register({ currencyList = [] }) {
     return (
         <div className='flex'>
             <div className='w-full md:w-1/2 lg:w-1/3 p-4 mx-auto mt-20'>
-                <div className='p-5 rounded-lg shadow-lg flex flex-col gap-8' style={{ background: palettes.dark[800], color: palettes.primary[400] }}>
+                <div className='p-5 rounded-lg shadow-lg flex flex-col gap-8 shadow-2xl border border-gray-700/50' style={{ background: palettes.dark[800], color: palettes.primary[400] }}>
                     <div className='flex flex-col gap-2 '>
                         <h2 className='text-2xl font-bold' style={{ color: palettes.primary[400] }} >Welcome</h2>
                     </div>
