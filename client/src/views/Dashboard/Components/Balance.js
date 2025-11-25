@@ -176,7 +176,7 @@ const Balance = ({
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = palettes.dark[900]}
             className={`flex items-center justify-between p-6 shadow-lg  transition-all duration-300`}
             style={{
-              backgroundColor: palettes.dark[900],
+              backgroundColor: palettes.dark[700],
               color: palettes.green[500],
               // border: `2px solid ${palettes.green[500]}`,
             }}
