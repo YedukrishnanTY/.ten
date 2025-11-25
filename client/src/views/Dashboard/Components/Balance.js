@@ -192,7 +192,7 @@ const Balance = ({
       >
         <SheetContent
           side={isMobile ? "bottom" : "right"}
-          style={{ backgroundColor: palettes.dark[800], borderWidth: '0', borderRadius: isMobile ? '24px 24px 0px 0px' : '' }}
+          style={{ backgroundColor: palettes.dark[900], borderWidth: '0', borderRadius: isMobile ? '24px 24px 0px 0px' : '' }}
         >
           <SheetHeader>
             <h1 className="text-2xl font-extrabold text-white">

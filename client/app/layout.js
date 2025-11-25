@@ -15,21 +15,21 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   // --- Basic Metadata ---
-  title: "Flow",
+  title: "FinX",
   description: "Track and manage your expenses effortlessly.",
 
   // --- Open Graph (OG) Metadata (For Facebook, LinkedIn, etc.) ---
   openGraph: {
-    title: "Flow - Expense Tracker",
+    title: "FinX - Expense Tracker",
     description: "Easily track, manage, and visualize your personal finances with Flow. Achieve financial clarity today.",
     url: "YOUR_APP_URL_HERE", // Replace with your app's actual URL
-    siteName: "Flow",
+    siteName: "FinX",
     images: [
       {
         url: "/logo1.png", // Path to your 1200x630px social preview image
         width: 1200,
         height: 630,
-        alt: "Flow Expense Tracker App Dashboard Screenshot",
+        alt: "FinX Expense Tracker App Dashboard Screenshot",
       },
     ],
     locale: "en_US",
@@ -39,7 +39,7 @@ export const metadata = {
   // --- Twitter Metadata ---
   twitter: {
     card: "summary_large_image", // Recommended for better visual appeal
-    title: "Flow: Effortless Expense Tracking",
+    title: "FinX: Effortless Expense Tracking",
     description: "Get financial clarity. Track every expense, visualize your budget, and save money with the Flow app.",
     creator: "@YOUR_TWITTER_HANDLE", // Replace with your app's Twitter handle
     images: ["/twitter-image.jpg"], // Path to your 800x418px Twitter preview image
