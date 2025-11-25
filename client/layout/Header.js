@@ -43,7 +43,7 @@ function Header() {
     };
 
     React.useEffect(() => {
-        if (path === '/' || path === '/dashboard')
+        if (path === '/dashboard')
             handleLogo()
     }, [path])
 
