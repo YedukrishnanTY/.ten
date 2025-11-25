@@ -44,17 +44,18 @@ const Balance = ({
         style={{ backgroundColor: palettes.dark[800] }}
       >
         <div className="flex items-start justify-between">
-          <div>
-            <p className="text-sm font-medium text-gray-400 tracking-wide uppercase">Net Balance</p>
-            {Object.entries(accountDetails?.balanceByCurrency || {})?.length > 0 ?
-              Object.entries(accountDetails?.balanceByCurrency || {}).map?.((value, item) => (
-                <h1 key={item} className="text-4xl md:text-5xl font-extrabold mt-1" style={{ color: palettes.primary[400] }}>
-                  {formattedBalance(value?.[1], value?.[0])}
-                </h1>
-              ))
-              : '-'}
+          <div className='flex gap-4 justify-between w-full items-center flex-wrap content-center' style={isMobile ? { justifyContent: 'center' } : {}}>
+            <div>
+              <p className="text-sm font-medium text-gray-400 tracking-wide uppercase">Net Balance</p>
+              {Object.entries(accountDetails?.balanceByCurrency || {})?.length > 0 ?
+                Object.entries(accountDetails?.balanceByCurrency || {}).map?.((value, item) => (
+                  <h1 key={item} className="text-4xl md:text-5xl font-extrabold mt-1" style={{ color: palettes.primary[400] }}>
+                    {formattedBalance(value?.[1], value?.[0])}
+                  </h1>
+                ))
+                : '-'}
+            </div>
             <div className="mt-5 flex flex-col md:flex-row gap-4 md:gap-8 text-white">
-
               {/* Income */}
               <div className="flex items-center gap-3 p-2 rounded-xl bg-gray-700/50">
                 <ArrowUp className="w-5 h-5" style={{ color: palettes.green[500] }} />
