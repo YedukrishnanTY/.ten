@@ -60,6 +60,8 @@ export default function RootLayout({ children, ...props }) {
         <link rel="apple-touch-icon" sizes="152x152" href="/logo3.png" />
         <link rel="apple-touch-icon" sizes="167x167" href="/logo3.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/logo3.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
