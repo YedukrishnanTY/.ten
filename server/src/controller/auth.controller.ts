@@ -56,15 +56,14 @@ export class AuthController {
             const forwarded = (req.headers && (req.headers['x-forwarded-for'] || req.headers['X-Forwarded-For'])) as string | undefined;
             if (forwarded) return normalizeIp(forwarded);
 
-            const raw = req.raw || req; 
+            const raw = req.raw || req;
             const socketAddr = raw?.socket?.remoteAddress || raw?.connection?.remoteAddress || raw?.remoteAddress;
             return normalizeIp(socketAddr);
         }
         const ip = getClientIp(req) || '';
 
-        console.log(ip, 'ip')
 
-        const userAgent = req.headers['user-agent'];
+        const userAgent = req.headers['user-agent'] || '';
 
         const user = await this.AuthService.createUser({
             ...User,
