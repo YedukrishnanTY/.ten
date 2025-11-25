@@ -49,6 +49,14 @@ export const metadata = {
 export default function RootLayout({ children, ...props }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="rgb(167, 139, 250)" />
+        <link rel="icon" href="/logo2.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <link rel="apple-touch-icon" href="/logo2.png" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
         style={{ background: '#0f172a' }}

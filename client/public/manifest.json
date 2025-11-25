@@ -1,0 +1,14 @@
+{
+"name": "FinX",
+"short_name": "FinX",
+"description": "FinX — your finance portal",
+"start_url": "/",
+"display": "standalone",
+"scope": "/",
+"background_color": "#ffffff",
+"theme_color": "#0b6ef6",
+"icons": [
+{ "src": "/logo2.png", "sizes": "192x192", "type": "image/png" },
+{ "src": "/logo2.png", "sizes": "512x512", "type": "image/png" }
+]
+}

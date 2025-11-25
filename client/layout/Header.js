@@ -12,6 +12,13 @@ function Header() {
     const path = usePathname()
     const [loading, setLoading] = React.useState(false);
     const [profile, setProfile] = React.useState(null);
+    const [promptEvent, setPromptEvent] = React.useState(null);
+    React.useEffect(() => {
+        const handler = (e) => { e.preventDefault(); setPromptEvent(e); };
+        window.addEventListener('beforeinstallprompt', handler);
+        return () => window.removeEventListener('beforeinstallprompt', handler);
+    }, []);
+
 
 
     const handleLogo = () => {
@@ -66,6 +73,13 @@ function Header() {
                     <></>
                 )}
             </div>
+            {promptEvent ? <Button
+                style={{
+                    background: palettes?.primary[400]
+                }} variant='primary' className='font-bold'
+                onClick={() => { promptEvent.prompt(); promptEvent.userChoice.then(() => setPromptEvent(null)); }}>
+                Install FinX
+            </Button> : <></>}
         </div>
     )
 }
