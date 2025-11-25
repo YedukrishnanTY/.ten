@@ -3,8 +3,6 @@ import React from 'react'
 import Header from './Header'
 import Toaster from './Toaster'
 import Interceptor from '../common/Interceptor'
-import { Apple, Menu, MenuIcon, Settings, Settings2, Share2, Step, StepForward } from 'lucide-react'
-import { palettes } from '@/common/palettes'
 
 
 
